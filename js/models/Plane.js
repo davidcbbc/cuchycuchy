@@ -22,18 +22,18 @@ export default class Plane extends Phaser.Physics.Arcade.Sprite {
         this.maxLifes = 4; // 5 vidas max ( 4 + 1)
         // add heart icons 
         this.lifesGroup = this.scene.physics.add.group({
-            repeat : this.maxLifes,
-            key : 'life',
+            repeat: this.maxLifes,
+            key: 'life',
             setXY: { x: 36 * (this.maxLifes + 1), y: 36, stepX: -40 },
         });
-        
-        this.lifesGroup.children.iterate(function(heart){
+
+        this.lifesGroup.children.iterate(function(heart) {
             heart.setScale(0.03);
-        },this);
+        }, this);
 
 
         this.fireRate = 250;
-        
+
     }
 
     update(cursors, time) {
@@ -64,8 +64,9 @@ export default class Plane extends Phaser.Physics.Arcade.Sprite {
         if (cursors.space.isDown && this.timeToShoot < time) {
             this.play("fireanim");
             let bullet = this.bullets.getFirstDead(true, this.x, this.y);
+            bullet.setScale(0.2);
             if (bullet) {
-                bullet.fire(this.velocidadex,this.velocidadey,this.bullets);
+                bullet.fire(this.velocidadex, this.velocidadey, this.bullets);
             }
             this.timeToShoot = time + this.fireRate;
         }
@@ -79,16 +80,16 @@ export default class Plane extends Phaser.Physics.Arcade.Sprite {
     }
 
     // metodo que tira uma vida ao passaro ou mata-o
-    minus1Life(){
+    minus1Life() {
         console.log(this.lifesGroup.getTotalUsed());
-        if(this.lifesGroup.getTotalUsed == 0){
+        if (this.lifesGroup.getTotalUsed == 0) {
             //game over
         } else {
             let heartzito = this.lifesGroup.getFirstAlive();
             heartzito.active = false;
             heartzito.visible = false;
         }
-        
+
     }
 
 }

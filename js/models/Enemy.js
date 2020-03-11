@@ -5,7 +5,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.baseVelocity = 100;
-        this.scene.physics.add.overlap(this, this.scene.bird, (enemy, bird) => {
+        this.scene.physics.add.overlap(this, this.scene.plane, (enemy, bird) => {
             bird.minus1Life();
             this.scene.enemies.killAndHide(this);
             this.destroy();
@@ -15,7 +15,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     update(cursors, time, group) {
         this.setVelocityX(-this.baseVelocity);
-        if(this.x < 0) {
+        if (this.x < 0) {
             console.log(this.scene.enemies.getTotalUsed());
             this.scene.enemies.killAndHide(this);
             console.log(this.scene.enemies.getTotalUsed());

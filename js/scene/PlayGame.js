@@ -1,4 +1,4 @@
-import Plane from "../models/Plane.js/index.js";
+import Plane from "../models/Plane.js";
 import Enemy from "../models/Enemy.js";
 export default class playGame extends Phaser.Scene {
     constructor() {
@@ -21,16 +21,16 @@ export default class playGame extends Phaser.Scene {
         this.timeToRespawnEnemy = 0;
         this.enemySpawnRate = 2500;
         this.pontos = 0; // mata um inimigo ganha 1 ponto
-        
+
     }
 
     update(time, delta) {
         this.plane.update(this.cursors, time);
-        this.enemies.children.iterate(function(enemy){
-            if(enemy.active == true)
-            enemy.update(time,delta);
-        },this);
-        if(this.timeToRespawnEnemy < time){
+        this.enemies.children.iterate(function(enemy) {
+            if (enemy.active == true)
+                enemy.update(time, delta);
+        }, this);
+        if (this.timeToRespawnEnemy < time) {
             //spawn aos enemigos
             const width = this.game.config.width;
             const height = this.game.config.height;

@@ -3,26 +3,30 @@ export default class bootGame extends Phaser.Scene {
         super("BootGame");
     }
     preload() {
-      
+
         this.load.spritesheet("enemy", "assets/enemies.png", {
             frameWidth: 96,
             frameHeight: 96,
         });
 
-        this.load.image("plane","assets/png/Plane/fly1.png");
-        this.load.image("plane2","assets/png/Plane/fly2.png");
+        this.load.image("plane", "assets/png/Plane/fly1.png");
+        this.load.image("plane2", "assets/png/Plane/fly2.png");
 
-        this.load.image("shoot1","assets/png/Plane/shoot1.png");
-        this.load.image("shoot2","assets/png/Plane/shoot2.png");
-        this.load.image("shoot3","assets/png/Plane/shoot3.png");
-        this.load.image("shoot4","assets/png/Plane/shoot4.png");
-        this.load.image("shoot5","assets/png/Plane/shoot5.png");
-        
+        this.load.image("shoot1", "assets/png/Plane/shoot1.png");
+        this.load.image("shoot2", "assets/png/Plane/shoot2.png");
+        this.load.image("shoot3", "assets/png/Plane/shoot3.png");
+        this.load.image("shoot4", "assets/png/Plane/shoot4.png");
+        this.load.image("shoot5", "assets/png/Plane/shoot5.png");
+
         this.load.image("bg", "assets/background.png");
 
         this.load.image("life", "assets/heart.png");
-        
-        this.load.image("bullet", "assets/bullet.png");
+
+        let bullet1 = this.load.image("bullet1", "assets/png/Bullet/bullet1.png");
+        this.load.image("bullet2", "assets/png/Bullet/bullet2.png");
+        this.load.image("bullet3", "assets/png/Bullet/bullet3.png");
+        this.load.image("bullet4", "assets/png/Bullet/bullet4.png");
+        this.load.image("bullet5", "assets/png/Bullet/bullet5.png");
     }
     create() {
         this.scene.start("PlayGame");
@@ -47,6 +51,19 @@ export default class bootGame extends Phaser.Scene {
             ],
             frameRate: 50,
             repeat: 1
+        });
+
+        this.anims.create({
+            key: 'bulletanim',
+            frames: [
+                { key: 'bullet1', frame: null },
+                { key: 'bullet2', frame: null },
+                { key: 'bullet3', frame: null },
+                { key: 'bullet4', frame: null },
+                { key: 'bullet5', frame: null },
+            ],
+            frameRate: 60,
+            repeat: -1
         });
     }
 }
