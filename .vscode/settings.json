@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5501,
+    // Controls the font family.
+   "editor.fontFamily": "Ubuntu Mono",
+    // Controls the line height. Use 0 to compute the lineHeight from the fontSize.
+    "editor.lineHeight": 35,
+    // Enables font ligatures
+    "editor.fontLigatures": true,
+    // Controls if file decorations should use badges.
+    "explorer.decorations.badges": false
+}
+

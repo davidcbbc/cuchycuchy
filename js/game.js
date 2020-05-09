@@ -1,13 +1,18 @@
 import bootGame from './scene/BootGame.js';
 import playGame from './scene/PlayGame.js';
+import introGame from './scene/IntroGame.js';
+import gameOver from './scene/GameOver.js';
 
 var game;
 window.onload = function() {
     var gameConfig = {
+        audio: {
+            disableWebAudio : true
+        },
         width: 1000,
         height: 800,
         backgroundColor: 0x000000,
-        scene: [bootGame, playGame],
+        scene: [bootGame, playGame, introGame,gameOver],
         physics: {
             default: "arcade",
             arcade: {

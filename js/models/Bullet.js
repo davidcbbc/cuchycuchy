@@ -1,68 +1,68 @@
 export default class Bullet extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, "bullet1");
-
         this.play("bulletanim").setScale(0.4);
-        //this.setScale(0.4);
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
-
         this.baseVelocity = 350;
+        this.baseGravity = 200;
+        this.pew = this.scene.sound.add("fire", {
+            volume: 0.05,
+            delay: 0
+          });
     }
 
-    fire(x, y, bullets) {
-        this.scene.physics.add.overlap(this, this.scene.enemies, (bullet, enemy) => {
-            bullets.killAndHide(this);
-
-            this.scene.enemies.killAndHide(enemy);
-            enemy.destroy();
-            this.destroy();
-            console.log("hit");
-        });
-
-        if (x == 0 && y == 0) {
-            // caso esteja parado dispara para a direita
+    /**
+     * Fire horizontally a bullet
+     * @param {*int} x 
+     * @param {*Group} bullets 
+     */
+    fire(x, bullets) {
+        this.setScale(0.2);
+        this.body.velocity.y = 0;
+        this.body.velocity.x = 0;
+        if (x == 0) {
             x = this.baseVelocity;
-            y = 0;
         } else {
-            if (x == 0) x = 0;
-            else if (x > 0) x = this.baseVelocity;
+            if (x > 0) x = this.baseVelocity;
             else x = -this.baseVelocity;
-            if (y == 0) y = 0;
-            else if (y > 0) y = this.baseVelocity;
-            else y = -this.baseVelocity;
         }
-
-
         this.setVelocityX(x);
-        this.setVelocityY(y);
         this.active = true;
         this.visible = true;
+        this.body.gravity.set(0,this.baseGravity);
+        this.pew.play()
     }
 
+
+
+    /**
+     * Fire to given enemy
+     * @param {*GameObject} enemy 
+     */
     fireToEnemy(enemy) {
-        //const dx = enemy.x - this.x;
-        //const dy = enemy.y - this.y;
-        //const alpha = Math.atan2(dy, dx);
-        //const vx = this.baseVelocity * Math.cos(alpha);
-        //const vy = this.baseVelocity * Math.sin(alpha);
-        //this.setVelocityX(vx);
-        //this.setVelocityY(vy);
-        // OU :
         this.scene.physics.add.overlap(this, enemy, (bullet, enemy) => {
             bullet.destroy()
             enemy.destroy();
             console.log("hit");
         });
         this.scene.physics.moveToObject(this, enemy, this.baseVelocity);
-        this.active = true;
-        this.visible = true;
+        this.active = true;music
     }
 
+    /**
+     * If bullet goes outside canvas
+     */
     isOutsideCanvas() {
         const width = this.scene.game.config.width;
         const height = this.scene.game.config.height;
         return this.x > width || this.x < 0 || this.y > height || this.y < 0;
+    }
+    /**
+     * Aumenta a velocidade das balas
+     */
+    fireFaster(){
+        this.baseVelocity +=50;
     }
 
 
